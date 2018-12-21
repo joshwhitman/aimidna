@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 
 // Grab config file
 const config = require('./config.json');
+const serverRoles = require('./roles.json');
 const token = config.token;
 
 // create a new Discord client
@@ -40,7 +41,8 @@ client.on('message', message => {
     }
 });
 
-// First command, but is message global?
-function sayHello(message){
-    message.channel.send("Hello");
-}
+
+// Listen for joins
+client.on('guildMemberAdd', (member) => {
+    member.addRole(serverRoles.beginner);
+});
